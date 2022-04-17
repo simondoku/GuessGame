@@ -2,26 +2,32 @@ import  random
 
 print('Welcome to the Number guessing game.')
 name = input('Enter your name:\n')
+
+number1 = random.randint(1, 10)
+number2 = random.randint(1, 10)
+if number1 < 5 and number2 > 5:
+    print('Hint: Maybe or maybe not, your first guess could be less than 5 and your second greater than 5')
+elif number1 > 5 and number2 < 5:
+    print('Maybe or maybe not, your first guess could be greater than 5, and your second less than 5')
+elif number1 < 5 and number2 < 5:
+    print('Maybe or maybe not, your first and second guess could be less than 5')
+elif number1 > 5 and number2 > 5:
+    print('Maybe or maybe not, your first and second guess could be greater than 5')
+elif number1 == 5 and number2 == 5:
+    print('Maybe or maybe not, your first and second guess could be the same. What and where, I cannot tell')
+
+print(name + ' ' + 'you have to guess two numbers between 1 and 10')
+
 def guessGame():
-    number1 = random.randint(1, 10)
-    number2 = random.randint(1, 10)
-    print(number1, number2)
-    if number1 < 5 and number2 > 5 :
-        print('Hint: Maybe or maybe not, your first guess could be less than 5 and your second greater than 5')
-    elif number1 > 5 and number2 < 5:
-        print('Maybe or maybe not, your first guess could be greater than 5, and your second less than 5')
-    elif number1 < 5 and number2 < 5:
-        print('Maybe or maybe not, your first and second guess could be less than 5')
-    elif number1 > 5 and number2 > 5:
-        print('Maybe or maybe not, your first and second guess could be greater than 5')
-    elif number1 == 5 and number2 == 5:
-        print('Maybe or maybe not, your first and second guess could be the same. What and where, I cannot tell')
-
-    print( name + ' ' + 'you have to guess two numbers between 1 and 10')
-
+    try:
         guess1 = int(input('Enter your first guess\n'))
         guess2 = int(input('Enter your second guess\n'))
 
+    except:
+        print('Enter a NUMBER')
+        return guessGame()
+
+    else:
         if guess1 == number1 and guess2 == number2:
             print('You have guess the right number in')
 
@@ -30,13 +36,13 @@ def guessGame():
             return guessGame()
 
         elif guess1 == number1 and guess2 == number2:
-            print('You have guess the right number in')
+            print('You have guess the right number')
         elif guess1 == number1 or guess2 == number2:
-            print('You guessed one number right\n Keep trying your almost there!')
+            print('You guessed one number right\n Keep trying you could get the next set right!')
             return guessGame()
 
-        else:
-            print('You have guessed the wrong number\n The right number is')
+        if guess1 != number1 and guess2 != number2:
+            print('You have guessed the wrong number\n The right number is' + ' ' + str(number1) + ', ' + str(number2) )
             retry = int(input('Enter 1 to retry or 0 to exit'))
             if retry == 1:
                 return guessGame()
@@ -47,6 +53,5 @@ def guessGame():
                 print('Enter the right choice')
                 return retry
 
-
-
 guessGame()
+
